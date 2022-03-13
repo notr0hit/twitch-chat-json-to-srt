@@ -14,7 +14,7 @@ def get_json_data(json_file_path):
     return json_load
 
 
-def get_info(json_file, no_of_chats=1):
+def get_info(json_file, no_of_chats):
     info = []
     ind = 0
     json_file_list = list(json_file['comments'])
