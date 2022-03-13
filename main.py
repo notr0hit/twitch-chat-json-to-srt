@@ -69,6 +69,7 @@ if str_no_of_chats != '' and str_no_of_chats.isdigit():
     no_of_chats = int(str_no_of_chats)
 
 srt_file_name = str(os.path.basename(json_file))[:-5] + '.srt'
+os.chdir(os.path.dirname(json_file))
 fp = open(srt_file_name, 'w', encoding="utf8")
 fp.close()
 
