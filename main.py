@@ -7,8 +7,6 @@ from turtle import end_fill
 
 from cv2 import FileNode_NAMED
 
-no_of_chats = 5
-
 def get_json_data(json_file_path):
     with open(json_file_path, 'r', encoding="utf8") as json_file:
         json_load = json.load(json_file)
@@ -16,7 +14,7 @@ def get_json_data(json_file_path):
     return json_load
 
 
-def get_info(json_file):
+def get_info(json_file, no_of_chats=1):
     info = []
     ind = 0
     json_file_list = list(json_file['comments'])
@@ -34,6 +32,8 @@ def get_info(json_file):
             cur_info['end_time'] = str(
                 timedelta(seconds=(json_file_list[ind]['content_offset_seconds'] + 3))
             )
+        if "sub" in cur_info['comment'].lower() or "resub" in cur_info['comment'].lower() or "streamlabs" in cur_info['user_name'].lower():
+            continue
         info.append(cur_info)
         ind += 1
     return info
@@ -64,7 +64,8 @@ if not json_file.endswith('json'):
     print("Please select json file first! ")
     exit(0)
 
-str_no_of_chats = (input("Enter maximum number of chats simultaneously (default=5) : "))
+no_of_chats = 1
+str_no_of_chats = (input("Enter maximum number of chats simultaneously (default=1) : "))
 if str_no_of_chats != '' and str_no_of_chats.isdigit():
     no_of_chats = int(str_no_of_chats)
 
@@ -74,7 +75,7 @@ fp = open(srt_file_name, 'w', encoding="utf8")
 fp.close()
 
 json = get_json_data(json_file)
-infos = get_info(json)
+infos = get_info(json, no_of_chats)
 build_srt(infos, srt_file_name)
 
 print("Success, srt file saved as {}.".format(srt_file_name))
