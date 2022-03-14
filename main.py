@@ -25,8 +25,11 @@ def get_tokens(json_file, no_of_chats):
         cur_info['user_color'] = comment['message']['user_color']
         cur_info['comment'] = comment['message']['body']
         cur_info['start_time'] = str(timedelta(seconds=comment['content_offset_seconds']))
-        cur_info['end_time'] = str(timedelta(seconds=comment['content_offset_seconds'] + 10))
+        cur_info['end_time'] = str(timedelta(seconds=comment['content_offset_seconds'] + 5))
         cur_info['offset'] = comment['content_offset_seconds']
+
+        if cur_info['user_color'] == "None":
+            cur_info['user_color'] = "#FFFFFF"
 
         if ("sub" in cur_info["comment"].lower()) or  ("resub" in cur_info["comment"].lower()) or ("stream" in cur_info["user_name"].lower()):
             continue
