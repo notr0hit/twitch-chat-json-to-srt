@@ -36,7 +36,7 @@ def get_tokens(json_file, no_of_chats):
         
         deq.append(cur_info)
         
-        if len(deq) >= no_of_chats:
+        if len(deq) > no_of_chats:
             last_info = deq.popleft()
             last_info['end_time'] = cur_info['start_time']        
             info.append(last_info)
